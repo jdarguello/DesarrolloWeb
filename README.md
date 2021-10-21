@@ -25,6 +25,7 @@ El contenido de este ciclo trata sobre los siguientes temas:
   * Autenticación de usuario
   * CRUD
 * __Frontend__
+  * Adobe XD
   * Creación de proyectos
   * Metodología MVVM
   * Metodologías de depuración
