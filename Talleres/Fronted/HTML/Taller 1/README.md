@@ -7,7 +7,7 @@
     <p>En el presente taller, emplearemos diferentes herramientas para la construcción de <strong><i>este</i></strong> documento con HTML.</p>
 </section>
 
-<section>
+<div>
     <h2><strong>1. Capítulo de texto</strong></h2>
     <p>En un capítulo de texto, puedes encontrarte con diferentes <strong>tonalidades</strong> y <i>formas</i>. La idea consiste en empezar a acostumbrarte a la forma en cómo redactar documentos en HTML.</p>
     <br>
@@ -21,7 +21,7 @@
         <h3>1.1. Subcapítulo de texto</h3>
         <p>Gracias a las etiquetas, es posible especificar información de la forma cómo lo desees. También es posible definir enlaces que direccionen hacia otra <a href="https://www.google.com">página web</a></p>
     </div>
-</section>
+</div>
 
 <section>
     <h2><strong>2. Interacción con usuario</strong></h2>
