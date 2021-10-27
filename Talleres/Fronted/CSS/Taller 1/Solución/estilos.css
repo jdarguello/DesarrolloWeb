@@ -1,0 +1,51 @@
+body {
+    background:linear-gradient(0deg, rgba(0, 0, 255, 0.3), rgba(0, 0, 255, 0.3)), url(./Images/fondo.png);
+    background-position: 40% 40%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    padding-left: 30px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.index {
+    font-size: 28px;
+    font-family: 'Dancing Script', cursive;
+}
+
+.cuerpo {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    padding-top: 80px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 70px;
+    font-family: 'Lato', sans-serif;
+}
+
+p {
+    padding-top: -10%;
+}
+
+button {
+    color: white;
+    background-color: #325DFF;
+    border-radius: 40px;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    border: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    word-spacing: 8px;
+}
