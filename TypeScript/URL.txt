@@ -1,1 +1,0 @@
-https://colab.research.google.com/gist/korakot/22abd6eccac229e9cb9a027b088b50d6/notebook.ipynb
