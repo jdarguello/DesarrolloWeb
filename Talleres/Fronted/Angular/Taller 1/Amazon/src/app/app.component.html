@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#"></a>
+  
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          Enviar a {{usuario}}
+          <br>
+          <p><i class="fas fa-map-marker-alt"></i> <b style="margin-left:0.25rem">{{ubicacion}} {{zip}}</b></p>
+        </a>
+      </li>
+      <form class="form-inline my-2 my-lg-0 search-form">
+        <select style="margin-left:1rem;" name="" id="">
+          <option *ngFor = "let opt of opcionesFiltrado;" value="{{opt}}">{{opt}}</option>
+        </select>
+        <input class="mr-sm-2 busqueda" id="search" type="search" aria-label="Search">
+        <button class="my-2 my-sm-0 boton-busqueda" id="search" type="submit"><fa-icon [icon]="faSearch" class="fa-lg"></fa-icon></button>
+      </form>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          Hola {{usuario}}
+          <br>
+          <p><b>Cuentas y Listas</b></p>
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          Devoluciones
+          <br>
+          <p><b>y Pedidos</b></p>
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><fa-icon [icon]="faCash" class="fa-3x"></fa-icon> {{numArt}}</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<app-productos></app-productos>
