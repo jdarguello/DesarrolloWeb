@@ -16,7 +16,7 @@ Nuestro problema objetivo será replicar el desarrollo frontend de Amazon, en la
 
 ## 1. Generalidades
 
-Para empezar, empezaremos construyendo nuestro proyecto Angular. En una ubicación de interés, crearemos el proyecto con el comando en consola: `ng new Amazon`, lo que nos creará el proyecto con los siguientes archivos:
+Iniciamos construyendo nuestro proyecto Angular. En una ubicación de interés, creamos el proyecto con el comando en consola: `ng new Amazon`, lo que generará lo siguiente:
 
 ```
 Amazon   
@@ -35,7 +35,6 @@ Amazon
 
 Como puedes apreciar, la creación del proyecto de Angular conlleva a la construcción de una serie de archivos y carpetas. Cada uno de ellos representa una porción de nuestro proyecto. Algunos de estos archivos se emplean para la configuración de este o para la generación de la lógica o estética del proyecto. Angular se encarga de descargarnos todas las librerías y herramientas requeridas para el despliegue del proyecto. A continuación, describiremos los más importantes e influyentes que emplearemos para nuestro desarrollo Frontend.
 
-* __e2e:__ contiene una serie de herramientas y librerías para el desarrollo de pruebas de comportamiento de usuario.
 * __node_modules:__ contiene todas las librerías requeridas para la construcción del proyecto.
 * __src:__ hace referencia a los archivos fuente de nuestro proyecto.
     * _app:_ consiste en la __base__ de nuestro proyecto. Contiene los archivos HTML, CSS y TypeScript principales del desarrollo frontend. También será la sección en donde encontraremos todos los componentes de nuestro proyecto.
@@ -51,7 +50,19 @@ Para probar nuestro desarrollo frontend podemos ejecutar el comando `ng serve --
 
 <p align="center"><i>Figura 2.</i> Aplicación angular inicial.</p>
 
-Para utilizar __Bootstrap__ en nuestro proyecto debemos instalarlo al ejecutar el comando `ng add @ng-bootstrap/ng-bootstrap`. Adicional, emplearemos una serie de emojis web conocidos como _Font awesome_; para agregarlos, sólo debemos ejcutar el comando `ng add @fortawesome/angular-fontawesome@0.10.0`
+Para utilizar __Bootstrap__ en nuestro proyecto, descargaremos los archivos [css]() y [js]() simplemente accediendo a los enlaces y guardando el código, con el nombre _bootstrap_ y la extensión correspondiente, en la carpeta __assets__. Una vez tengamos los archivos _bootstrap.css_ y _bootstrap.js_, los agregaremos en __angular.json__ de la siguiente forma:
+
+```JSON
+"styles": [
+  "src/styles.css",
+  "src/assets/bootstrap.css"
+],
+"scripts": [
+  "src/assets/bootstrap.js"
+]
+```
+
+Para nuestro desarrollo, emplearemos una serie de emojis web conocidos como _Font awesome_; para agregarlos, sólo debemos ejcutar el comando `ng add @fortawesome/angular-fontawesome@0.10.0`
 
 ## 2. Base del proyecto
 
@@ -100,7 +111,76 @@ En este contenido inicial se puede observar que se presenta una etiqueta `<app-r
 
 ```
 
-### 2.2. app.component.html
+### 2.2. app.component.ts
+
+En esta sección aplicaremos la lógica general de nuestra cabecera: importaremos los íconos y añadiremos parte de la funcionalidad al motor de búsqueda, entre otros. 
+
+```TS
+import { Component, OnInit } from '@angular/core';
+import { faSearch, faDollyFlatbed } from '@fortawesome/free-solid-svg-icons';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  title = 'Amazon';
+  usuario = "Juan";
+  ubicacion = "Bucaramanga";
+  zip = "680003";
+  opcionesFiltrado = [
+    "Todos",
+    "Arte y artesanías",
+    "Automotriz"
+  ];
+  numArt = 0;
+
+  //Íconos
+  faSearch = faSearch;
+  faCash = faDollyFlatbed;
+
+  constructor() {
+   }
+
+  ngOnInit(): void {
+    
+  }
+
+}
+```
+
+### 2.3. app.module.ts
+
+Para poder emplear los íconos web de _font awersome_, importaremos el compomente de íconos que descargamos anteriormente de la siguiente forma:
+
+```TS
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FontAwesomeModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+Para mayor información, puedes dirigirte al repositorio [GitHub de FortAwesome](https://github.com/FortAwesome/angular-fontawesome).
+
+
+### 2.4. app.component.html
 
 La etiqueta `<app-root>` hace referencia al componente base de nuestro proyecto, que se encuentra en: __Amazon/src/app/app.component.html__. El contenido original corresponde a TODO el desarrollo visual que se pudo apreciado en la Figura 2. Eliminaremos este contenido y, en su lugar, construiremos la cabecera de Amazon, de la siguiente forma:
 
@@ -149,15 +229,13 @@ La etiqueta `<app-root>` hace referencia al componente base de nuestro proyecto,
 </nav>
 ```
 
-Este desarrollo particular utiliza Bootstrap y una serie de estilos personalizados que emulan la estética de Amazon. En este punto, deberías tener este resultado visual:
+Lo anterior, nos dará como resultado:
 
-![](Images/cabecera_nologo.PNG)
+![](./Images/nav_noestilo.png)
 
-Como puedes observar, sólo nos falta añadir el logo.
+### 2.5. app.component.css
 
-### 2.3. app.component.css
-
-Añadiremos el logo a través de la redefinición de la etiqueta bootstrap `navbar-brand` de la siguiente forma:
+Añadiremos los siguientes estilos para garantizar la estética de nuestro menú de navegación.
 
 ```CSS
 .navbar-brand {
@@ -166,84 +244,56 @@ Añadiremos el logo a través de la redefinición de la etiqueta bootstrap `navb
     background-size: 100% 100%;
     padding-bottom: 80px;
 }
-```
 
-Obteniendo como resultado:
+.search-form {
+    height: 5rem;
+    width: 40rem;
+}
 
-![](Images/cabecera_logo_sinInfo.PNG)
+select {
+    background: url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat;
+    background-position: calc(100% - 0.75rem) center !important;
+    -moz-appearance:none !important;
+    -webkit-appearance: none !important; 
+    appearance: none !important;
+    padding-right: 2rem !important;
+    background-color: rgb(230, 230, 230);
+    width: 5.6rem;
+    padding-left:0.5rem;
+    padding-right: 0.5rem;
+    border: none;
+    border-radius: 0.25rem 0 0 0.25rem;
+    padding-bottom: 0.8rem;
+    padding-top: 0.8rem;
+    color: #272727;
+    margin-bottom: 1rem;
+}
 
-### 2.4. app.module.ts
+#search {
+    padding:0.5rem;
+    border: none;
+    padding-bottom: 0.8rem;
+    padding-top: 0.8rem;
+    margin-bottom: 1rem;
+}
 
-Para poder emplear los íconos web de _font awersome_, importaremos el compomente de íconos que descargamos anteriormente de la siguiente forma:
+.busqueda {
+    width: 75.5%;
+}
 
-```TS
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+.boton-busqueda {
+    position:relative; 
+    left: 0%; 
+    bottom: 0%;
+    border: none;
+    border-radius: 0 0.25rem 0.25rem 0;
+    background-color: rgb(255, 193, 112);
+}
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    ProductosComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    FontAwesomeModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-
-Para mayor información, puedes dirigirte al repositorio [GitHub de FortAwesome](https://github.com/FortAwesome/angular-fontawesome).
-
-### 2.5. app.component.ts
-
-En esta sección aplicaremos la lógica general de nuestra cabecera: importaremos los íconos y añadiremos parte de la funcionalidad al motor de búsqueda, entre otros. 
-
-```TS
-import { Component, OnInit } from '@angular/core';
-import { faSearch, faDollyFlatbed } from '@fortawesome/free-solid-svg-icons';
-
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent implements OnInit {
-  title = 'Amazon';
-  usuario = "Juan";
-  ubicacion = "Bucaramanga";
-  zip = "680003";
-  opcionesFiltrado = [
-    "Todos",
-    "Arte y artesanías",
-    "Automotriz"
-  ];
-  numArt = 0;
-
-  //Íconos
-  faSearch = faSearch;
-  faCash = faDollyFlatbed;
-
-  constructor() {
-   }
-
-  ngOnInit(): void {
-    
-  }
-
+.boton-busqueda:hover {
+    background-color: rgb(255, 183, 88);
 }
 ```
-
 
 Obteniendo como resultado la cabecera de nuestro desarrollo frontend.
 
@@ -321,7 +371,20 @@ En este punto, ya tenemos almacenada la información del usuario, los número de
 
 Muchas veces, para realizar un desarrollo con Angular es necesario construir las diferentes secciones de nuestro componente en paralelo. En el caso de la sección de filtros:
 
-#### 3.3.1 productos.component.html
+#### 3.3.1 productos.component.ts
+
+En paralelo, debemos importar del _local storage_ las opciones de filtrado de nuestro desarrollo, de la siguiente forma:
+
+```TS
+ngOnInit(): void {
+    this.usuario = localStorage.getItem("usuario");
+    this.opcionesFiltrado = JSON.parse(localStorage.getItem("opciones"));
+  }
+```
+
+Empleamos el método `getItem` para obtener la información de interés.
+
+#### 3.3.2 productos.component.html
 
 Iniciamos clasificando nuestro desarrollo en dos secciones: _contenido-categorias_ y _categorias-productos_. En la primera definiremos el uso de filtros, mientras que en la segunda ubicaremos __todas__ las categorías de nuestros productos.
 
@@ -339,19 +402,6 @@ Iniciamos clasificando nuestro desarrollo en dos secciones: _contenido-categoria
     </div>
 </div>
 ```
-
-#### 3.3.2 productos.component.ts
-
-En paralelo, debemos importar del _local storage_ las opciones de filtrado de nuestro desarrollo, de la siguiente forma:
-
-```TS
-ngOnInit(): void {
-    this.usuario = localStorage.getItem("usuario");
-    this.opcionesFiltrado = JSON.parse(localStorage.getItem("opciones"));
-  }
-```
-
-Empleamos el método `getItem` para obtener la información de interés.
 
 #### 3.3.3 productos.component.css
 
@@ -371,6 +421,7 @@ Finalmente, emplearemos los siguientes estilos:
 }
 ```
 
+
 Obteniendo el siguiente resultado visual:
 
 ![](Images/filtros.PNG)
@@ -378,7 +429,52 @@ Obteniendo el siguiente resultado visual:
 
 ### 3.4. Sucategorías
 
-#### 3.4.1 productos.component.html
+#### 3.4.1 productos.component.ts
+
+Ahora, importaremos las diferentes categorías y la información general de los productos a mostrar:
+
+```TS
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-productos',
+  templateUrl: './productos.component.html',
+  styleUrls: ['./productos.component.css']
+})
+export class ProductosComponent implements OnInit {
+
+  categoriasProductos:Map<string, Map<string, string>> = new Map<string, Map<string, string>>([
+    ["Flash Furniture", new Map<string, string>([
+      ["precios", "$10.72 - $856.00"],
+      ["img", "../assets/categorias/Flash Furniture/general.jpg"]
+    ])],
+    ["Greenworks", new Map<string, string>([
+      ["precios", "$10.72 - $856.00"],
+      ["img", "../assets/categorias/Greenworks/general.jpg"]
+    ])],
+    ["Learning Resources", new Map<string, string>([
+      ["precios", "$10.72 - $856.00"],
+      ["img", "../assets/categorias/Learning Resources/general.jpg"]
+    ])]
+  ]);
+
+  usuario:string = "";
+  opcionesFiltrado:Array<string> = [];
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.usuario = localStorage.getItem("usuario") || '{}';
+    this.opcionesFiltrado = JSON.parse(localStorage.getItem("opciones") || '[]');
+    for (let cat in this.categoriasProductos) {
+      console.log(cat);
+    }
+  }
+
+}
+```
+
+#### 3.4.2 productos.component.html
 
 Adaptaremos nuestro documento HTML de la siguiente forma:
 
@@ -393,66 +489,16 @@ Adaptaremos nuestro documento HTML de la siguiente forma:
         </div>
     </div>
     <div class="categorias-productos grid">
-        <div class="categoria-producto" *ngFor="let categoria of Object.keys(categoriasProductos)">
-            <img class="img-cat" src="{{categoriasProductos[categoria]['img']}}" alt="">
+        <div class="categoria-producto" *ngFor="let categoria of categoriasProductos | keyvalue">
+            <img class="img-cat" src="{{categoria.value.get('img')}}" alt="">
             <div class="cont-promo">
                 <p class="promocion">Black Friday</p>
-                <p class="precios">{{categoriasProductos[categoria]["precios"]}}</p>
-                <p style="margin-top: -1rem; font-size: 18px;">Ahorra en {{categoria}} y más</p>
+                <p class="precios">{{categoria.value.get('precios')}}</p>
+                <p style="margin-top: -1rem; font-size: 18px;">Ahorra en {{categoria.key}} y más</p>
             </div>
         </div>
     </div>
 </div>
-```
-
-#### 3.4.2 productos.component.ts
-
-Ahora, importaremos las diferentes categorías y la información general de los productos a mostrar:
-
-```CSS
-import { Component, OnInit } from '@angular/core';
-
-@Component({
-  selector: 'app-productos',
-  templateUrl: './productos.component.html',
-  styleUrls: ['./productos.component.css']
-})
-export class ProductosComponent implements OnInit {
-
-  Object = Object;
-
-  categoriasProductos = {
-    "Flash Furniture": {
-      "precios": "$10.72 - $856.00",
-      "img": "../assets/categorias/Flash Furniture/general.jpg"
-    },
-    "Learning Resources": {
-      "precios": "$6.49 - $223.99",
-      "img": "../assets/categorias/Learning Resources/general.jpg"
-    },
-    "TOPPIN": {
-      "precios": "$6.49 - $223.99",
-      "img": "../assets/categorias/TOPPIN/general.jpg"
-    },
-    "Greenworks": {
-      "precios": "$6.49 - $223.99",
-      "img": "../assets/categorias/Greenworks/general.jpg"
-    },
-  };
-  usuario:string;
-  opcionesFiltrado:Array<string>;
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.usuario = localStorage.getItem("usuario");
-    this.opcionesFiltrado = JSON.parse(localStorage.getItem("opciones"));
-    for (let cat in this.categoriasProductos) {
-      console.log(cat);
-    }
-  }
-
-}
 ```
 
 #### 3.4.3 productos.component.css
@@ -460,9 +506,15 @@ export class ProductosComponent implements OnInit {
 Finalmente, emplearemos los siguientes estilos para el control estético:
 
 ```CSS
+.promo {
+    width: 100%;
+}
+
 .contenido-categorias {
     margin-top: 2rem;
+    position: relative;
 }
+
 
 .categorias-genericas {
     width: 20%;
@@ -472,8 +524,9 @@ Finalmente, emplearemos los siguientes estilos para el control estético:
 }
 
 .categorias-productos {
+    position: relative;
     width: 80%;
-    margin-top: -10.1%;
+    margin-top: -10.1rem;
     margin-left: 20%;
 }
 
@@ -511,6 +564,20 @@ Finalmente, emplearemos los siguientes estilos para el control estético:
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media screen and (max-width:600px) {
+    .categorias-genericas {
+        display: none;
+    }
+    .categorias-productos {
+        margin-left: 0;
+        margin-top: 0;
+        width: 100%;
+    }
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
 ```
 
