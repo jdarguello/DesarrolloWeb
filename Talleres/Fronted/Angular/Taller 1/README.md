@@ -50,7 +50,7 @@ Para probar nuestro desarrollo frontend podemos ejecutar el comando `ng serve --
 
 <p align="center"><i>Figura 2.</i> Aplicación angular inicial.</p>
 
-Para utilizar __Bootstrap__ en nuestro proyecto, descargaremos los archivos [css]() y [js]() simplemente accediendo a los enlaces y guardando el código, con el nombre _bootstrap_ y la extensión correspondiente, en la carpeta __assets__. Una vez tengamos los archivos _bootstrap.css_ y _bootstrap.js_, los agregaremos en __angular.json__ de la siguiente forma:
+Para utilizar __Bootstrap__ en nuestro proyecto, descargaremos los archivos [css](https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css) y [js](https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js) simplemente accediendo a los enlaces y guardando el código, con el nombre _bootstrap_ y la extensión correspondiente, en la carpeta __assets__. Una vez tengamos los archivos _bootstrap.css_ y _bootstrap.js_, los agregaremos en __angular.json__ de la siguiente forma:
 
 ```JSON
 "styles": [
