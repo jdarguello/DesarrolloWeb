@@ -378,7 +378,7 @@ En paralelo, debemos importar del _local storage_ las opciones de filtrado de nu
 ```TS
 ngOnInit(): void {
     this.usuario = localStorage.getItem("usuario");
-    this.opcionesFiltrado = JSON.parse(localStorage.getItem("opciones"));
+    this.opcionesFiltrado = JSON.parse(localStorage.getItem("opciones") || '[]');
   }
 ```
 
