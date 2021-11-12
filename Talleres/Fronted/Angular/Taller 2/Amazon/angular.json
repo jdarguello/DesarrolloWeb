@@ -1,9 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "cb1f02a7-5821-4202-bf5a-1c6f5b8d8670"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Amazon2": {
+    "AmazonTaller": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Amazon2",
+            "outputPath": "dist/AmazonTaller",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,10 +74,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Amazon2:build:production"
+              "browserTarget": "AmazonTaller:build:production"
             },
             "development": {
-              "browserTarget": "Amazon2:build:development"
+              "browserTarget": "AmazonTaller:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +85,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Amazon2:build"
+            "browserTarget": "AmazonTaller:build"
           }
         },
         "test": {
@@ -105,5 +108,5 @@
       }
     }
   },
-  "defaultProject": "Amazon"
+  "defaultProject": "AmazonTaller"
 }
