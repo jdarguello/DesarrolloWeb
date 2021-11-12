@@ -129,12 +129,12 @@ export class AppComponent implements OnInit {
   usuario = "Juan";
   ubicacion = "Bucaramanga";
   zip = "680003";
-  opcionesFiltrado = [
+  opcionesFiltrado:Array<string> = [
     "Todos",
     "Arte y artesanías",
     "Automotriz"
   ];
-  numArt = 0;
+  numArt:number = 0;
 
   //Íconos
   faSearch = faSearch;
