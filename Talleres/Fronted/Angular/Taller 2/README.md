@@ -53,7 +53,7 @@ const routes: Routes = [
   {path: 'compras', component: ComprasComponent}
 ];
 ```
-La primera línea corresponde a la vista principal de nuestro desarrollo, correspondiente al resultado del primer taller. La segunda hace referencia a parte del desarrollo del presente taller. La dirección `compras/:categoria` hace referencia a la sección de compras, y el valor de la categoría corresponderá a la categoría específica que seleccione el usuario. Este valor de categoría nos servirá para saber el contenido que debemos mostrarle al usuario.
+La primera línea corresponde a la vista principal de nuestro desarrollo, correspondiente al resultado del primer taller. La segunda hace referencia a parte del desarrollo del presente taller. La dirección `compras` hace referencia a la sección de compras.
 
 Nuestro archivo  quedará de la siguiente forma:
 
