@@ -376,9 +376,12 @@ Muchas veces, para realizar un desarrollo con Angular es necesario construir las
 En paralelo, debemos importar del _local storage_ las opciones de filtrado de nuestro desarrollo, de la siguiente forma:
 
 ```TS
+usuario:string = "";
+opcionesFiltrado:Array<string> = [];
+
 ngOnInit(): void {
-    this.usuario = localStorage.getItem("usuario");
-    this.opcionesFiltrado = JSON.parse(localStorage.getItem("opciones"));
+    this.usuario = localStorage.getItem("usuario") || "";
+    this.opcionesFiltrado = JSON.parse(localStorage.getItem("opciones") || '[]');
   }
 ```
 
