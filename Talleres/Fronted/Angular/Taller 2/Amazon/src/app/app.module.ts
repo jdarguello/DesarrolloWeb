@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProductosComponent } from './productos/productos.component';
 import { ComprasComponent } from './compras/compras.component';
+import { ProductoComponent } from './producto/producto.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductosComponent,
-    ComprasComponent
+    ComprasComponent,
+    ProductoComponent
   ],
   imports: [
     BrowserModule,

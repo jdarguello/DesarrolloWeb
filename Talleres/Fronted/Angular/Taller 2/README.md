@@ -336,4 +336,324 @@ Nuevamente, tenemos dos funciones adicionales:
 
 Ahora, teniendo la inforamción, construiremos la organización de nuestro desarrollo.
 
+```HTML
+<div class="cuerpo">
+    <h2>Ahorra en {{categoria}} y más</h2>
 
+    <div class="productos grid">
+        <div class="producto" *ngFor="let prod of productos | keyvalue">
+            <a href="">
+                <img src="{{prod.value.get('imagen')}}">
+                <p style="font-size: 20px;">{{prod.key}}</p>
+                <p class="promocion">Oferta del día</p>
+                <p>US$ <b>{{prod.value.get("precio")}}</b></p>
+            </a>
+        </div>
+    </div>
+</div>
+```
+
+### 2.6. compras.component.css
+
+Aplicando los estilos a nuestro documento...
+
+```CSS
+.cuerpo {
+    background-color: rgb(240, 240, 240);
+}
+
+h2 {
+    padding: 1rem;
+    font-weight: bold;
+}
+
+.productos {
+    margin-left: 1%;
+    margin-right: 1%;
+    background-color: white;
+}
+
+.producto {
+    border: solid rgb(240, 240, 240);
+    border-width: 0.15rem;
+    margin: 0.5rem;
+}
+
+.producto img {
+    width: 100%;
+    height: 20rem;
+}
+
+.producto a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.producto p {
+    padding-left: 5%;
+}
+
+.producto b {
+    font-size: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.promocion {
+    background-color: rgb(185, 74, 0);
+    color: white;
+    width: 8rem;
+    margin-left: 5%;
+    padding-left: -2rem;
+}
+```
+
+Obtendremos el siguiente resultado:
+
+![](Images/productos.PNG)
+
+## 3. Página de producto
+
+Ahora, el usuario tendrá la posibilidad de escoger __un__ sólo producto para observar su información.
+
+Lo primero que haremos será crear la aplicación `producto` ejecutando en consola: `ng g c producto`
+
+### 3.1. app-routing.module.ts
+
+Añadiremos una nueva ruta a nuestro desarrollo, que corresponderá a la página de información del producto.
+
+```TS
+import { ProductoComponent } from './producto/producto.component';
+
+const routes: Routes = [
+  {path: '', component: ProductosComponent},
+  {path: 'compras', component: ComprasComponent},
+  {path: 'compras/producto', component: ProductoComponent}
+];
+```
+
+### 3.2. compras.component.ts
+
+Crearemos una función que permita: 
+ 
+1. Almacenar la información del producto que se desea observar.
+2. Cambiar a la página del producto.
+
+```TS
+producto(prod:string):void {
+  //Filtrar la información del producto
+  var producto:Map<string, any> = this.productos.get(prod) || new Map<string, any>();
+  producto.set("nombre", prod);
+
+  //Almacenar información
+  localStorage.setItem("producto", JSON.stringify(producto, this.reemplazar));
+
+  //Cambio de página
+  this.router.navigate(['compras', 'producto']);
+}
+
+reemplazar (key:string, value:any): any {
+  if (value instanceof Map) {
+    return Array.from(value);
+  }
+  return value;
+}
+```
+
+La función `reemplazar` permite acomodar el mapa para convertirlo en texto y almacenar su contenido en el navegador del usuario.
+
+### 3.3. compras.component.html
+
+Ahora, haremos que, cuando el usuario haga click sobre un producto de interés, active la función que creamos en la sección 3.2.
+
+```HTML
+<a (click) ="producto(prod.key)">
+    <img src="{{prod.value.get('imagen')}}">
+    <p style="font-size: 20px;">{{prod.key}}</p>
+    <p class="promocion">Oferta del día</p>
+    <p>US$ <b>{{prod.value.get("precio")}}</b></p>
+</a>
+```
+
+Este efecto lo logramos gracias al argumento `(click)`.
+
+### 3.4. producto.component.ts
+
+En el componente producto importaremos la información del producto que el usuario desea adquirir y luego la convertiremos en un mapa para utilizarla fácilmente en el documento HTML de nuestro componente.
+
+```TS
+producto:Map<string, any> = new Map<string, any>();
+
+constructor() { }
+
+ngOnInit(): void {
+  //Leer información
+  const info:Array<any> = JSON.parse(localStorage.getItem("producto") || "[]");
+
+  //Convertir a mapa
+  for (let arg of info) {
+    this.producto.set(arg[0], arg[1]);
+  }
+}
+```
+
+### 3.5. producto.component.html
+
+Para nuestro desarrollo, aplicaremos la siguiente organización:
+
+```HTML
+<div class="grid">
+    <img src="{{producto.get('imagen')}}">
+    <div class="contenido">
+        <div class="descripcion">
+            <a>Visita la tienda de {{producto.get("marca")}}</a>
+            <h1>{{producto.get("nombre")}}</h1>
+            <p class="promocion">Amazon's <a>Choice</a></p>
+            <hr>
+            <div class="info">
+                <p>Oferta del día: <a>US$ {{producto.get("precio")}}</a></p>
+                <p>{{producto.get("descripcion")}}</p>
+            </div>
+        </div>
+        <div class="compra">
+            <h1>US$ {{producto.get("precio")}}</h1>
+            <p>Sin depósito de derechos de importación y US$ 11.34 de envío a Colombia (Envío GRATIS a Colombia cuando gastes más de US$ 35.00 en artículos aptos) </p>
+            <h2>Disponible</h2>
+            <select>
+                <option value="1">Cantidad: 1</option>
+                <option value="2">Cantidad: 2</option>
+                <option value="3">Cantidad: 3</option>
+            </select>
+            <button style="background-color: gold;">Agregar al carrito</button>
+            <button style="background-color: orange;">Comprar ahora</button>
+        </div>
+    </div>
+</div>
+```
+
+### 3.6. producto.component.css
+
+Finalmente, aplicaremos los estilos necesarios:
+
+```CSS
+img {
+    width: 90%;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.contenido {
+    position: 50%;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    margin-left: 0.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 3rem;
+    margin-left: 3rem;
+}
+
+.descripcion a {
+    text-decoration: none;
+    color: rgb(71, 138, 150);
+    font-weight: bold;
+}
+
+.descripcion a:hover {
+    text-decoration: underline;
+    color: orange;
+}
+
+.descripcion h1 {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.promocion {
+    background-color: rgb(15, 12, 44);
+    color: white;
+    width: 8.8rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.promocion a {
+    color: rgb(255, 153, 0);
+    font-weight:normal;
+}
+
+
+.info {
+    color: rgb(90, 90, 90);
+    font-weight: 600;
+}
+
+.info a {
+    color: rgb(202, 57, 0);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.descripcion hr {
+    background-color: rgb(140, 140, 140);
+}
+
+.compra {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    border: solid rgb(190, 190, 190);
+    border-radius: 1rem;
+    border-width: 0.1rem;
+    height: 30rem;
+
+    padding: 1.5rem;
+    color: rgb(90, 90, 90);
+    font-weight: 600;
+    text-align: justify;
+}
+
+.compra h1 {
+    color: rgb(202, 57, 0);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.compra h2 {
+    color: rgb(69, 104, 17);
+    font-size: 24px;
+}
+
+.compra select {
+    background-color: rgb(240, 240, 240);
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    padding: 0.2rem 0.5rem 0.2rem 0.2rem;
+    box-shadow: -0.15rem 0.15rem 0.1rem rgb(200, 200, 200);
+}
+
+.compra select:hover {
+    background-color: rgb(190, 190, 190);
+}
+
+button {
+    width: 100%;
+    margin-top: 0.8rem;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem;
+
+    font-weight: 600;
+}
+```
+
+Obteniendo el siguiente resultado:
+
+![](Images/prod.PNG)

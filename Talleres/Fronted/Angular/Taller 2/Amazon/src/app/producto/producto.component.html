@@ -1,0 +1,27 @@
+<div class="grid">
+    <img src="{{producto.get('imagen')}}">
+    <div class="contenido">
+        <div class="descripcion">
+            <a>Visita la tienda de {{producto.get("marca")}}</a>
+            <h1>{{producto.get("nombre")}}</h1>
+            <p class="promocion">Amazon's <a>Choice</a></p>
+            <hr>
+            <div class="info">
+                <p>Oferta del día: <a>US$ {{producto.get("precio")}}</a></p>
+                <p>{{producto.get("descripcion")}}</p>
+            </div>
+        </div>
+        <div class="compra">
+            <h1>US$ {{producto.get("precio")}}</h1>
+            <p>Sin depósito de derechos de importación y US$ 11.34 de envío a Colombia (Envío GRATIS a Colombia cuando gastes más de US$ 35.00 en artículos aptos) </p>
+            <h2>Disponible</h2>
+            <select>
+                <option value="1">Cantidad: 1</option>
+                <option value="2">Cantidad: 2</option>
+                <option value="3">Cantidad: 3</option>
+            </select>
+            <button style="background-color: gold;">Agregar al carrito</button>
+            <button style="background-color: orange;">Comprar ahora</button>
+        </div>
+    </div>
+</div>

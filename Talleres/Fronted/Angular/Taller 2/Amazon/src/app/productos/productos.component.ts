@@ -82,6 +82,7 @@ export class ProductosComponent implements OnInit {
 
     //Guardado de información
     localStorage.setItem("productos", JSON.stringify(productos, this.reemplazar));
+    localStorage.setItem("categoria", categoria);
 
     //Cambio de página
     this.router.navigate(['compras']);
