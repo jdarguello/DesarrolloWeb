@@ -81,7 +81,7 @@ Si deseas mayor información, puedes acceder a la documentación oficial de Angu
 
 Haremos un ajuste de funcionalidad a la cabecera de nuestro desarrollo, que encontramos en __Amazon/src/app/app.component.html__. La idea es que cuando el usuario haga click en el logo de Amazon, lo dirija al desarrollo del primer taller.
 
-Para ello, emplearemos el argumento de Angular de etiqueta `router-link`, de la siguiente forma:
+Para ello, emplearemos el argumento de Angular de etiqueta `routerLink`, de la siguiente forma:
 
 ```HTML
   <a class="navbar-brand" routerLink="/" routerLinkActive="active"></a>
