@@ -1,0 +1,23 @@
+<div class="carrito">
+    <div *ngIf="app.articulos.length === 0">
+        <h1>Aún no has seleccionado ningún artículo</h1>
+    </div>
+    <div *ngIf="app.articulos.length > 0">
+        <div *ngFor="let art of app.articulos;" class="articulo">
+            <div>
+                <img src="{{art.get('imagen')}}" alt="">
+            </div>
+            <div class="contenido">
+                <h1>{{art.get('nombre')}}</h1>
+                <p class="precio">US${{art.get('precio')}}</p>
+                <p class="promo">#1 el más vendido</p>
+            </div>
+        </div>
+    </div>
+    <div class="checkout">
+        <p class="envio">Tu pedido es elegible para <b>envío GRATIS</b>.</p>
+        <h2>Subtotal ({{app.numArt}} productos): US${{app.total}}</h2>
+        <p><input type="checkbox"> Este pedido es un regalo</p>
+        <button>Proceder al pago</button>
+    </div>
+</div>

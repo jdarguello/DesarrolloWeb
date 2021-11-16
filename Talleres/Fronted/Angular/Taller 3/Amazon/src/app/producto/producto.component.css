@@ -1,0 +1,112 @@
+img {
+    width: 90%;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.contenido {
+    position: 50%;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    margin-left: 0.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 3rem;
+    margin-left: 3rem;
+}
+
+.descripcion a {
+    text-decoration: none;
+    color: rgb(71, 138, 150);
+    font-weight: bold;
+}
+
+.descripcion a:hover {
+    text-decoration: underline;
+    color: orange;
+}
+
+.descripcion h1 {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.promocion {
+    background-color: rgb(15, 12, 44);
+    color: white;
+    width: 8.8rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.promocion a {
+    color: rgb(255, 153, 0);
+    font-weight:normal;
+}
+
+
+.info {
+    color: rgb(90, 90, 90);
+    font-weight: 600;
+}
+
+.info a {
+    color: rgb(202, 57, 0);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.descripcion hr {
+    background-color: rgb(140, 140, 140);
+}
+
+.compra {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    border: solid rgb(190, 190, 190);
+    border-radius: 1rem;
+    border-width: 0.1rem;
+    height: 30rem;
+
+    padding: 1.5rem;
+    color: rgb(90, 90, 90);
+    font-weight: 600;
+    text-align: justify;
+}
+
+.compra h1 {
+    color: rgb(202, 57, 0);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.compra h2 {
+    color: rgb(69, 104, 17);
+    font-size: 24px;
+}
+
+.compra select {
+    background-color: rgb(240, 240, 240);
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    padding: 0.2rem 0.5rem 0.2rem 0.2rem;
+    box-shadow: -0.15rem 0.15rem 0.1rem rgb(200, 200, 200);
+}
+
+.compra select:hover {
+    background-color: rgb(190, 190, 190);
+}
+
+button {
+    width: 100%;
+    margin-top: 0.8rem;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem;
+
+    font-weight: 600;
+}

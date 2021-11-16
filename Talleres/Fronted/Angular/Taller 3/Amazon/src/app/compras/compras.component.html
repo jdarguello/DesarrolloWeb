@@ -1,0 +1,14 @@
+<div class="cuerpo">
+    <h2>Ahorra en {{categoria}} y más</h2>
+
+    <div class="productos grid">
+        <div class="producto" *ngFor="let prod of productos | keyvalue">
+            <a (click) ="producto(prod.key)">
+                <img src="{{prod.value.get('imagen')}}">
+                <p style="font-size: 20px;">{{prod.key}}</p>
+                <p class="promocion">Oferta del día</p>
+                <p>US$ <b>{{prod.value.get("precio")}}</b></p>
+            </a>
+        </div>
+    </div>
+</div>

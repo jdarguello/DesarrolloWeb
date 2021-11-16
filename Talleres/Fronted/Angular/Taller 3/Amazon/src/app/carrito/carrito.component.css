@@ -1,0 +1,76 @@
+.carrito {
+    background-color: rgb(240, 240, 240);
+    display: grid;
+    grid-template-columns: 75% 25%;
+    padding: 2rem;
+}
+
+.articulo {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    background-color: white;
+    border: none;
+    width: 90%;
+    padding-left: 1rem;
+    padding-top:1rem;
+
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.articulo img {
+    width: 100%;
+}
+
+.contenido {
+    padding-left: 1rem;
+}
+
+.contenido h1 {
+    font-size: 32px;
+}
+
+.precio {
+    font-weight:800;
+    font-size:1.5rem;
+}
+
+.promo {
+    background-color: rgb(221, 113, 50);
+    color: white;
+    border-radius: 0.2rem;
+    width: 9.5rem;
+    padding: 0.5rem;
+}
+
+.checkout {
+    background-color: white;
+    padding: 2rem;
+    height: 16rem;
+}
+
+.envio {
+    color: rgb(23, 133, 47);
+}
+
+.checkout p b {
+    font-weight: bold;
+}
+
+.checkout h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.checkout button {
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    padding-top:0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: gold;
+}
+
+.checkout button:hover {
+    background-color: rgb(236, 201, 1);
+}

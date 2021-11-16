@@ -1,0 +1,20 @@
+<img class="promo" src="https://images-na.ssl-images-amazon.com/images/G/01/US-hq/2021/img/Events/Holiday/EarlyBlackFriday/LandingPage/BFCM21_Phase2_EBF_hero_banner_short_desktop_1500x150_es.gif" alt="Primeras Ofertas de Black friday">
+
+<div class="contenido-categorias">
+    <div class="categorias-genericas">
+        <p><b>Departamentos</b></p>
+        <div class="categoria" *ngFor="let opcion of opcionesFiltrado;">
+            <p><input type="checkbox"> {{opcion}}</p>
+        </div>
+    </div>
+    <div class="categorias-productos grid">
+        <a class="categoria-producto" *ngFor="let categoria of categoriasProductos | keyvalue" (click)= "compras(categoria.key)">
+            <img class="img-cat" src="{{categoria.value.get('img')}}" alt="">
+            <div class="cont-promo">
+                <p class="promocion">Black Friday</p>
+                <p class="precios">{{categoria.value.get('precios')}}</p>
+                <p style="margin-top: -1rem; font-size: 18px;">Ahorra en {{categoria.key}} y más</p>
+            </div>
+        </a>
+    </div>
+</div>
