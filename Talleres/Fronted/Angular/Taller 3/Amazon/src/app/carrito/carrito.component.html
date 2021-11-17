@@ -7,17 +7,18 @@
             <div>
                 <img src="{{art.get('imagen')}}" alt="">
             </div>
-            <div class="contenido">
+            <form class="contenido" (ngSubmit) = "actualizarItem(art, form)" #form = "ngForm">
                 <h1>{{art.get('nombre')}}</h1>
                 <p class="precio">US${{art.get('precio')}}</p>
                 <p class="promo">#1 el más vendido</p>
-            </div>
+                <p><input name="cantidad" type="number" ngModel> <button type="submit">Actualizar</button> <b>| </b> <a (click)="eliminarItem(art)">Eliminar</a></p>
+            </form>
         </div>
     </div>
     <div class="checkout">
         <p class="envio">Tu pedido es elegible para <b>envío GRATIS</b>.</p>
         <h2>Subtotal ({{app.numArt}} productos): US${{app.total}}</h2>
-        <p><input type="checkbox"> Este pedido es un regalo</p>
-        <button>Proceder al pago</button>
+        <p><input type="checkbox" ngModel> Este pedido es un regalo</p>
+        <button (click) = "checkout()">Proceder al pago</button>
     </div>
 </div>

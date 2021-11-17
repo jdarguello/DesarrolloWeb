@@ -74,3 +74,28 @@
 .checkout button:hover {
     background-color: rgb(236, 201, 1);
 }
+
+.contenido input {
+    width: 20%;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+.contenido button {
+    width: 12%;
+    background-color: gold;
+    border: none;
+    border-radius: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.contenido a {
+    color: rgb(1, 151, 151);
+}
+
+.contenido b {
+    margin-left:0.5rem;
+    margin-right: 0.5rem;
+    font-weight: 300;
+    color: rgb(201, 201, 201);
+}

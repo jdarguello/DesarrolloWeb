@@ -1,0 +1,22 @@
+<div class="checkout">
+    <h1>Seleccionar dirección de envío</h1>
+
+    <hr>
+
+    <div class="info">
+        <h2>{{infoEnvio.get("nombre")}}</h2>
+        <p>{{infoEnvio.get("direccion")}}</p>
+        <p>{{infoEnvio.get("lugar")}}</p>
+        <p>{{infoEnvio.get("pais")}}</p>
+        <p>{{infoEnvio.get("contacto")}}</p>
+        <button (click) = "edicion()">Confirmar dirección</button>
+        <p *ngIf="mostrarEdicion"><button>Editar</button> <button>Eliminar</button></p>
+    </div>
+
+    <hr>
+
+    <div class="pago">
+        <h1>Seleccionar método de pago</h1>
+        <h3>PayPal</h3>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="malla" [class.malla] = "numArt > 0 && route.routerState.snapshot.url !== '/carrito' ">
+<div class="malla" [class.malla] = "numArt > 0 && route.routerState.snapshot.url !== '/carrito' && route.routerState.snapshot.url !== '/checkout' ">
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" routerLink="/" routerLinkActive="active"></a>
@@ -45,7 +45,7 @@
     <router-outlet></router-outlet>
   </div>
 
-  <div *ngIf="numArt > 0 && route.routerState.snapshot.url !== '/carrito'" class="resumen-carrito">
+  <div *ngIf="numArt > 0 && route.routerState.snapshot.url !== '/carrito' && route.routerState.snapshot.url !== '/checkout'" class="resumen-carrito">
     <p>Subtotal</p>
     <h2>US$ {{total}}</h2>
     <img *ngFor="let prod of articulos | keyvalue" src="{{prod.value.get('imagen')}}" alt="">

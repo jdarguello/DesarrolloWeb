@@ -1,0 +1,47 @@
+.checkout {
+    margin-top:2rem;
+    margin-left: 2rem;
+    background-color: white;
+    margin-right: 2rem;
+}
+
+.info {
+    width: 20%;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+button {
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+}
+
+.info button {
+    width: 100%;
+    background-color: gold;
+    margin-bottom: 0.5rem;
+}
+
+.info p button {
+    width: 45%;
+    background-color: rgb(214, 214, 214);
+    margin-right: 0.5rem;
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+hr {
+    border: 0.1rem solid rgb(210, 210, 210);
+}

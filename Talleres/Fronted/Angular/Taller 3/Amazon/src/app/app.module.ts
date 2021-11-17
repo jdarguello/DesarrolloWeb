@@ -8,6 +8,8 @@ import { ProductosComponent } from './productos/productos.component';
 import { ComprasComponent } from './compras/compras.component';
 import { ProductoComponent } from './producto/producto.component';
 import { CarritoComponent } from './carrito/carrito.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,15 @@ import { CarritoComponent } from './carrito/carrito.component';
     ProductosComponent,
     ComprasComponent,
     ProductoComponent,
-    CarritoComponent
+    CarritoComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
