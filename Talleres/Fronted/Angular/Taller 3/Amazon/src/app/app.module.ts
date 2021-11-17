@@ -11,6 +11,8 @@ import { CarritoComponent } from './carrito/carrito.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CheckoutComponent } from './checkout/checkout.component';
 
+import { NgxPayPalModule } from 'ngx-paypal';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     AppRoutingModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPayPalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

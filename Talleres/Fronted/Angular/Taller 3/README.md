@@ -342,16 +342,515 @@ Añadimos la aplicación principal como pública para poder utilizarla dentro de
 
 Ahora, crearemos las funciones `addItem`, `quitarItem` y `eliminarArt`.
 
-* __addItem:__ añade un artículo adicional.
+* __actualizarItem__:__ actualiza el número de items de un artículo en específico .
 
-* __quitarItem:__ remueve un artículo de los ya seleccionados.
-
-* __eliminarArt:__ elimina un artículo.
+* __eliminarItem:__ elimina un artículo.
 
 ```TS
+actualizarItem(art:Map<string, any>, form:NgForm):void {
+  //Leer entrada numérica
+  const cant:number = form.value.cantidad;
 
+  //Desarrollo
+  if (cant <= 0) {
+    //Eliminamos el artículo de la lista
+    this.eliminarItem(art);
+  } else {
+    //Adicionamos la cantidad del artículo y actualizamos
+    this.eliminarItem(art, false);
+    const indice = this.app.articulos.indexOf(art);
+    this.app.articulos[indice].set("cantidad", cant);
+    this.app.numArt += cant;
+
+    const precio = art.get("precio");
+    this.app.total += precio*cant;
+  }    
+
+}
+
+eliminarItem(art:Map<string, any>, del:boolean = true):void {
+  const indice = this.app.articulos.indexOf(art);
+  //Actualizar número de artículos
+  const numArtAnterior:number = this.app.articulos[indice].get("cantidad");
+  this.app.numArt -= numArtAnterior;
+
+  //Actualizar total
+  const precio = art.get("precio");
+  this.app.total -= precio*numArtAnterior;
+
+  //Eliminar artículo
+  if (del) {
+    this.app.articulos.splice(indice, 1);
+  }
+}
 ```
 
 ### 2.4. carrito.component.html
 
+El documento HTML que construiremos consistirá en lo siguiente:
 
+```HTML
+<div class="carrito">
+    <div *ngIf="app.articulos.length === 0">
+        <h1>Aún no has seleccionado ningún artículo</h1>
+    </div>
+    <div *ngIf="app.articulos.length > 0">
+        <div *ngFor="let art of app.articulos;" class="articulo">
+            <div>
+                <img src="{{art.get('imagen')}}" alt="">
+            </div>
+            <form class="contenido" (ngSubmit) = "actualizarItem(art, form)" #form = "ngForm">
+                <h1>{{art.get('nombre')}}</h1>
+                <p class="precio">US${{art.get('precio')}}</p>
+                <p class="promo">#1 el más vendido</p>
+                <p><input name="cantidad" type="number" ngModel> <button type="submit">Actualizar</button> <b>| </b> <a (click)="eliminarItem(art)">Eliminar</a></p>
+            </form>
+        </div>
+    </div>
+    <div class="checkout">
+        <p class="envio">Tu pedido es elegible para <b>envío GRATIS</b>.</p>
+        <h2>Subtotal ({{app.numArt}} productos): US${{app.total}}</h2>
+        <p><input type="checkbox" ngModel> Este pedido es un regalo</p>
+        <button>Proceder al pago</button>
+    </div>
+</div>
+```
+
+### 2.5. carrito.component.css
+
+Aplicamos los siguientes estilos:
+
+```CSS
+.carrito {
+    background-color: rgb(240, 240, 240);
+    display: grid;
+    grid-template-columns: 75% 25%;
+    padding: 2rem;
+}
+
+.articulo {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    background-color: white;
+    border: none;
+    width: 90%;
+    padding-left: 1rem;
+    padding-top:1rem;
+
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.articulo img {
+    width: 100%;
+}
+
+.contenido {
+    padding-left: 1rem;
+}
+
+.contenido h1 {
+    font-size: 32px;
+}
+
+.precio {
+    font-weight:800;
+    font-size:1.5rem;
+}
+
+.promo {
+    background-color: rgb(221, 113, 50);
+    color: white;
+    border-radius: 0.2rem;
+    width: 9.5rem;
+    padding: 0.5rem;
+}
+
+.checkout {
+    background-color: white;
+    padding: 2rem;
+    height: 16rem;
+}
+
+.envio {
+    color: rgb(23, 133, 47);
+}
+
+.checkout p b {
+    font-weight: bold;
+}
+
+.checkout h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.checkout button {
+    width: 100%;
+    border: none;
+    border-radius: 0.5rem;
+    padding-top:0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: gold;
+}
+
+.checkout button:hover {
+    background-color: rgb(236, 201, 1);
+}
+
+.contenido input {
+    width: 20%;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+.contenido button {
+    width: 12%;
+    background-color: gold;
+    border: none;
+    border-radius: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.contenido a {
+    color: rgb(1, 151, 151);
+}
+
+.contenido b {
+    margin-left:0.5rem;
+    margin-right: 0.5rem;
+    font-weight: 300;
+    color: rgb(201, 201, 201);
+}
+```
+
+Obteniendo el siguiente resultado:
+
+![](Images/carritoDef.PNG)
+
+## 3. Checkout
+
+En la sección de checkout construiremos el formulario de la información base de envío y estableceremos como medio de pago PayPal. Empezamos creando el componente de checkout con el comando `ng g c checkout`
+
+### 3.1. app-routing.module.ts
+
+Iniciamos creando la ruta de nuestro nuevo componente:
+
+```TS
+import { CheckoutComponent } from './checkout/checkout.component';
+
+const routes: Routes = [
+  ...,
+  {path: 'checkout', component:CheckoutComponent}
+];
+```
+
+### 3.2. carrito.component.ts
+
+Construiremos una función que evalúe si se cumple las condiciones para avanzar a la sección del checkout.
+
+```TS
+import { Router } from '@angular/router';
+
+constructor(public app:AppComponent, private router:Router) { }
+
+checkout() {
+  if (this.app.numArt > 0) {
+    this.router.navigate(["checkout"]);
+  }
+}
+```
+
+### 3.3. carrito.component.html
+
+Ahora, habilitaremos el acceso a la función `checkout` en el momento en que el usuario presione el botón de "Proceder al pago".
+
+```HTML
+<div class="checkout">
+  ...
+  <button (click) = "checkout()">Proceder al pago</button>
+</div>
+```
+
+Cuando se tengan artículos en el carrito, al presionar el botón, nos llevará a la sección de checkout.
+
+![](Images/checkno.PNG)
+
+En nuestra sección de checkout no será necesario observar el resumen de compras, por lo que lo deshabilitaremos a continuación.
+
+### 3.4. app.component.html
+
+Añadiremos una condición adicional para evitar que se muestre el resumen de compra en la sección de checkout.
+
+```HTML
+<div class="malla" [class.malla] = "numArt > 0 && route.routerState.snapshot.url !== '/carrito' && route.routerState.snapshot.url !== '/checkout' ">
+
+<div *ngIf="numArt > 0 && route.routerState.snapshot.url !== '/carrito' && route.routerState.snapshot.url !== '/checkout'" class="resumen-carrito">
+```
+
+### 3.5. checkout.component.ts
+
+Añadiremos la siguiente información y configuraciones que permitirán desarrollar la finalización de la compra de nuestros usuarios. Empezamos añadiendo la información de envío del usuario registrado como atributo de la clase y una variable booleana (true o false) que permita mostrar los botones de edición de dirección de entrega.
+
+```TS
+infoEnvio:Map<string, string> = new Map<string, string>([
+  ["nombre", "Andrés Pérez"],
+  ["direccion", "Cll 80 #30"],
+  ["lugar", "Bogotá 680001"],
+  ["pais", "Colombia"],
+  ["contacto", "Teléfono: +573108503125"]
+]);
+
+mostrarEdicion: boolean = true;
+```
+
+Crearemos un método que, cuando el usuario confirme la dirección, oculte los botones de edición:
+
+```TS
+edicion() {
+  this.mostrarEdicion = false;
+}
+```
+
+### 3.6. checkout.component.html
+
+Ahora, brindaremos la forma de nuestro documento HTML.
+
+```HTML
+<div class="checkout">
+    <h1>Seleccionar dirección de envío</h1>
+
+    <hr>
+
+    <div class="info">
+        <h2>{{infoEnvio.get("nombre")}}</h2>
+        <p>{{infoEnvio.get("direccion")}}</p>
+        <p>{{infoEnvio.get("lugar")}}</p>
+        <p>{{infoEnvio.get("pais")}}</p>
+        <p>{{infoEnvio.get("contacto")}}</p>
+        <button (click) = "edicion()">Confirmar dirección</button>
+        <p *ngIf="mostrarEdicion"><button>Editar</button> <button>Eliminar</button></p>
+    </div>
+
+    <hr>
+
+    <div class="pago">
+        <h1>Seleccionar método de pago</h1>
+    </div>
+</div>
+```
+
+### 3.7. checkout.component.css
+
+Aplicamos los estilos respectivos:
+
+```CSS
+.checkout {
+    margin-top:2rem;
+    margin-left: 2rem;
+    background-color: white;
+    margin-right: 2rem;
+}
+
+.info {
+    width: 20%;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+button {
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+}
+
+.info button {
+    width: 100%;
+    background-color: gold;
+    margin-bottom: 0.5rem;
+}
+
+.info p button {
+    width: 45%;
+    background-color: rgb(214, 214, 214);
+    margin-right: 0.5rem;
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+hr {
+    border: 0.1rem solid rgb(210, 210, 210);
+}
+```
+
+Lo que nos dará como resultado:
+
+![](Images/checkoutNo.PNG)
+
+## 4. Configuración de PayPal
+
+Para el establecimiento de la configuración de pago a través de PayPal, vamos a requerir instalar la librería [ngx-paypal](https://www.npmjs.com/package/ngx-paypal) ejecutando el siguiente comando: `npm i ngx-paypal --force`
+
+En __app.module.ts__ añadiremos la librería de la siguiente forma:
+
+```TS
+import { NgxPayPalModule } from 'ngx-paypal';
+
+imports: [
+  ...,
+  NgxPayPalModule
+]
+```
+
+### 4.1 Cuenta online
+
+Antes de continuar, deberás crear una cuenta de PayPal y acceder a la sección de proyectos a través del siguiente [enlace](https://developer.paypal.com/developer/accounts/).
+
+Una vez creada la cuenta y estando en la sección de proyectos, debes dirigirte a la sección de _"My Apps & Credentials"_, como se muestra a continuación, o a través del siguiente [enlace](https://developer.paypal.com/developer/applications).
+
+![](Images/pay1.PNG)
+
+
+En la sección de las credenciales, creamos la aplicación de nuestro taller. 
+
+![](Images/app.PNG)
+
+Finalmente, al crear la app, guardas la información del __Client ID__, que utilizaremos más adelante.
+
+![](Images/appInfo.PNG)
+
+
+### 4.2 checkout.component.ts
+
+Ahora, brindaremos la funcionalidad para pagos con PayPal. La forma final de nuestro documento TypeScript será la siguiente:
+
+```TS
+import { Component, OnInit } from '@angular/core';
+
+import { IPayPalConfig } from 'ngx-paypal';
+import { ICreateOrderRequest } from 'ngx-paypal';
+
+import { AppComponent } from '../app.component';
+
+@Component({
+  selector: 'app-checkout',
+  templateUrl: './checkout.component.html',
+  styleUrls: ['./checkout.component.css']
+})
+export class CheckoutComponent implements OnInit {
+
+  infoEnvio: Map<string, string> = new Map<string, string>([
+    ["nombre", "Andrés Pérez"],
+    ["direccion", "Cll 80 #30"],
+    ["lugar", "Bogotá 680001"],
+    ["pais", "Colombia"],
+    ["contacto", "Teléfono: +573108503125"]
+  ]);
+
+  public payPalConfig?: IPayPalConfig;
+
+  items:any[] = [];
+
+  mostrarEdicion: boolean = true;
+
+  constructor(private app:AppComponent) { }
+
+  ngOnInit(): void {
+    this.initConfig();
+
+    //Preparación de items para factura automática:
+    for (let art of this.app.articulos) {
+      this.items.push({
+        name: art.get("nombre"),
+          quantity: art.get("cantidad").toString(),
+          category: 'DIGITAL_GOODS',
+          unit_amount: {
+            currency_code: 'USD',
+            value: art.get("precio").toString(),
+          },
+      });
+    }
+  }
+
+  edicion() {
+    this.mostrarEdicion = false;
+  }
+
+  private initConfig(): void {
+    this.payPalConfig = {
+      currency: 'USD',
+      clientId: 'id',
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [{
+          amount: {
+            currency_code: 'USD',
+            value: this.app.total.toString(),
+            breakdown: {
+              item_total: {
+                currency_code: 'USD',
+                value: this.app.total.toString()
+              }
+            }
+          },
+          items: this.items
+        }]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical'
+      },
+      onApprove: (data, actions) => {
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+
+
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+
+      },
+      onError: err => {
+        console.log('OnError', err);
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+      },
+    };
+  }
+
+}
+```
+
+En la variable `clientId` deberás reemplazarla por el id obtenido en la sección __4.1__.
+
+### 4.3 checkout.component.html
+
+Finalmente, añadiremos la sección de pagos en nuestro documento HTML:
+
+```HTML
+<div class="pago">
+    <h1>Seleccionar método de pago</h1>
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+</div>
+```
+
+Obteniendo el siguiente resultado:
+
+![](Images/check1.PNG)
