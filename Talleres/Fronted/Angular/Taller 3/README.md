@@ -340,7 +340,7 @@ constructor(public app:AppComponent) { }
 
 Añadimos la aplicación principal como pública para poder utilizarla dentro del documento HTML.
 
-Ahora, crearemos las funciones `addItem`, `quitarItem` y `eliminarArt`.
+Ahora, crearemos las funciones `actualizarItem` y `eliminarItem`.
 
 * __actualizarItem__:__ actualiza el número de items de un artículo en específico .
 
