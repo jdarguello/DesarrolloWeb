@@ -328,6 +328,22 @@ También, modificaremos la condición de la sección:
 <div *ngIf="numArt > 0 && route.routerState.snapshot.url !== '/carrito'" class="resumen-carrito">
 ```
 
+### 2.3. app.module.ts
+
+Para el uso de formularios en Angular, deberemos agregar la siguiente configuración:
+
+```TS
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+
+@NgModule({
+  imports: [
+    ...,
+    FormsModule,
+    ReactiveFormsModule,
+  ]
+```
+
+
 ### 2.3. carrito.component.ts
 
 Ahora, añadiremos las funciones que permitan: añadir nuevos artículos o eliminarlos. Empezamos importando los artículos de la siguiente forma:
