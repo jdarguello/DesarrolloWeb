@@ -223,6 +223,14 @@ categoriasProductos:Map<string, Map<string, any>> = new Map<string, Map<string, 
 ]);
 ```
 
+Ahora, añadimos el router:
+
+```TS
+import { Router } from '@angular/router';
+
+constructor (private router:Router) {  }
+```
+
 Lo siguiente que debemos es hacer es _almacenar_ la información de nuestra base de datos en el navegador de nuestros usuarios para optimizar el rendimiento de respuesta de nuestro servicio (en lugar de solicitar, una y otra vez, la información al servidor), y lo haremos de la siguiente forma:
 
 ```TS
