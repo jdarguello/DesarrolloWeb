@@ -1,0 +1,47 @@
+<!--
+    producto[0] -> nombre del producto
+    producto[1] -> es otro array que contiene la información 
+                    del producto
+    producto[1][0] -> array que contiene la información de
+                        la imagen
+    producto[1][0][1] -> contiene la dirección de la imagen
+
+    producto[1][1] -> array que contiene la información del precio
+    producto[1][1][0] -> palabra 'precio'
+    producto[1][1][1] -> precio per se
+
+    producto[1][2] -> array de descripción de producto
+
+    producto[1][3] -> array que contiene la marca
+-->
+
+<div class="cuerpo">
+    <div class="productos">
+        <div>
+            <img src="{{infoProducto[1][0][1]}}" alt="">
+        </div>
+        <div class="info-producto">
+            <a>Visita la tienda de {{infoProducto[1][3][1]}}</a>
+            <h2>{{infoProducto[0]}}</h2>
+            <p id="promo">Amazon's <b>Choice</b></p>
+            <hr>
+            <p>Oferta del día: <b>US${{infoProducto[1][1][1]}}</b></p>
+            <p>{{infoProducto[1][2][1]}}</p>
+        </div>
+    </div>
+
+    <div class="compra">
+        <div class="contenido">
+            <h2>US$ {{infoProducto[1][1][1]}}</h2>
+            <p>Sin depósito de derechos de importación y US$ 11.34 de envío a Colombia (Envío GRATIS a Colombia cuando gastes más de US$ 35.00 en artículos aptos) </p>
+            <p style="color: rgb(88, 175, 117);">Disponible</p>
+            <select (change) = "cambioCantidad($event)">
+                <option value="1">Cantidad: 1</option>
+                <option value="2">Cantidad: 2</option>
+                <option value="3">Cantidad: 3</option>
+            </select>
+            <button style="background-color: gold;" (click)="agregarArticulo()">Agregar al carrito</button>
+            <button style="background-color: orange;">Comprar ahora</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+button {
+    width: 20rem;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+    margin-bottom: 1rem;
+    margin-right: 0.5rem;
+}
+
+p {
+    width: 20rem;
+}
+
+p button {
+    width: 9.5rem;
+}

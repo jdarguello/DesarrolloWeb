@@ -1,0 +1,61 @@
+.navbar-brand {
+    background-image: url("../assets/wlogo.png");
+    width: 10%;
+    padding-bottom: 5rem;
+    margin-right: 2.5rem;
+    background-size: 100% 100%;
+}
+
+.navbar a {
+    /* Color de letra para las etiquetas <a></a> que se que pertenezcan al div que contenga la clase navbar */
+    color:white;
+}
+
+.menu-busqueda {
+    width: 500px;
+    margin-top: 1rem;
+    margin-left: 2.5rem;
+}
+
+.menu-busqueda select {
+    /* Contiene las opciones de categorías */
+    width:15%;
+    padding: 0.5rem;
+    background-color: rgb(240, 240, 240);
+    border: none;
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.menu-busqueda input {
+    /* Zona en donde se escribe la búsqueda */
+    width: 75%;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+}
+
+.menu-busqueda button {
+    /* Botón de búsqueda */
+    width: 10%;
+    background-color: rgb(255, 193, 112);
+    border: none;
+    border-radius: 0 0.5rem 0.5rem 0;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+.resumen-compras {
+    display: grid; /* estilo de malla */
+    grid-template-columns: 90% 10%;
+
+    text-align: center;
+}
+
+.contenido-resumen h2 {
+    color: rgb(201, 98, 3);
+}
+
+.contenido-resumen img {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}  

@@ -1,0 +1,23 @@
+<div class="contenido">
+    <div class="resumen-compras">
+        <h1>Carrito</h1>
+        <p class="anular">Anular la selección de todos los elementos</p>
+        <hr>
+        <div *ngFor="let art of app.articulos" class="articulo">
+            <div>
+                <img src="{{art[1][0][1]}}" alt="">
+            </div>
+            <div class = "contenido-articulo">
+                <p class="titulo">{{art[0]}}</p>
+                <b>US${{art[1][1][1]}}</b>
+                <p><input type="text"> <button>Actualizar</button></p>
+            </div>
+        </div>
+    </div>
+    <div class="checkout">
+        <p class="anular">Tu pedido es elegible para envío GRATIS</p>
+        <h2>Subtotal( productos) <b>US${{app.total}}</b> </h2>
+        <p><input type="checkbox"> Este pedido es un regalo</p>
+        <button routerLink="/checkout" routerLinkActive="active">Proceder al pago</button>
+    </div>
+</div>

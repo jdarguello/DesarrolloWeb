@@ -1,0 +1,58 @@
+<div class="resumen-compras" [class.resumen-compras] = "numArt > 0 && router.routerState.snapshot.url !== '/carrito'">
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" routerLink="/" routerLinkActive="active"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Enviar a {{usuario}}
+              <br>
+              <b>{{lugar}} {{zip}}</b>
+            </a>
+          </li>
+          <form class="form-inline menu-busqueda">
+            <select>
+              <option *ngFor="let tipo of categorias;" value="{{tipo}}">{{tipo}}</option>
+            </select>
+            <input class="" type="search" aria-label="Search">
+            <button class="" type="submit"><fa-icon [icon]="iconoBusqueda" class="fa-lg"></fa-icon></button>
+          </form>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Hola {{usuario}}
+              <br>
+              <b>Cuentas y Listas</b>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Devoluciones
+              <br>
+              <b>y Pedidos</b>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/carrito" routerLinkActive="active"><fa-icon [icon]="iconoCarrito" class="fa-2x"></fa-icon> {{numArt}}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <router-outlet></router-outlet> <!--Especificamos las direcciones del proyecto-->
+
+  </div>
+
+  <div *ngIf="numArt > 0 && router.routerState.snapshot.url !== '/carrito'" class="contenido-resumen">
+    <p>Subtotal</p>
+    <h2>US${{total}}</h2>
+    <div *ngFor="let art of articulos">
+      <img src="{{art[1][0][1]}}">
+    </div>
+  </div>
+
+</div>

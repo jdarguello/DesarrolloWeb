@@ -1,0 +1,45 @@
+.cuerpo {
+    background-color: rgb(230, 230, 230);
+    padding:1.5rem;
+}
+
+h1 {
+    font-weight:600;
+    padding-bottom: 1.5rem;
+}
+
+.productos {
+    background-color: white;
+    width: 100%;
+    display: grid; /* grid == malla */
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* 1fr => una sección de columna igualmente espaciada */
+}
+
+.prod {
+    /* Estilos de un producto individual */
+    margin: 0.5rem;
+    border: solid rgb(197, 197, 197);
+    border-width: 0.15rem;
+}  
+
+img {
+    /* el ancho es una medida relativa a la clase 'prod' */
+    width: 100%;
+    height: 20rem;
+}
+
+.contenido {
+    margin: 0.5rem;
+}
+
+.contenido h2 {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.promo {
+    background-color: rgb(182, 88, 1);
+    color: white;
+    width: 7rem;
+}

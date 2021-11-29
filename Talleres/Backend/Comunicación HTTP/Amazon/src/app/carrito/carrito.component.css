@@ -1,0 +1,67 @@
+.contenido {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    background-color: rgb(240, 240, 240);
+
+    padding: 2rem;
+}
+
+.resumen-compras {
+    background-color: white;
+    margin-right: 1rem;
+    padding: 1rem;
+}
+
+.anular {
+    color:rgb(59, 119, 99);
+    font-weight: 700;
+}
+
+.checkout {
+    background-color: white;
+    padding: 1rem;
+
+    height: 15rem;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+button {
+    width: 100%;
+    background-color: gold;
+    border: none;
+    border-radius: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+}
+
+.articulo {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20% 80%;
+
+    border: solid rgb(204, 204, 204);  
+    border-width: 0.1rem;
+
+    margin-bottom: 0.5rem;
+}
+
+img {
+    width: 100%;
+}
+.titulo {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.contenido-articulo button {
+    width: 5rem;
+}
+
+.contenido-articulo input {
+    width: 6rem;
+    margin-right: 0.5rem;
+}

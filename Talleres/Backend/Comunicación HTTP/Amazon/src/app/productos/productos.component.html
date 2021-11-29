@@ -1,0 +1,23 @@
+<img class="promo" src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Events/2021/EarlyBlackFriday/Fuji_EBF21_dealsLP_es_US_1500x150.gif" alt="">
+
+<div class="cuerpo">
+    <div class="filtros">
+        <b>Departamentos</b>
+        <p *ngFor="let categoria of categorias;"><input type="checkbox"> {{categoria}}</p>
+    </div>
+    <div class="categoriasProductos malla">
+        <div class="categoria" *ngFor = "let categoria of categoriasProductos | keyvalue;" (click) = "categoriaCompras(categoria.key)">
+            <!--
+                categoriaProductos => hace referencia al mapa que tenemos en TypeScript que contiene TODA la información de 
+                                      las categorías de nuestros productos
+                
+                categoria          => hace referencia a cada una de las categorías individuales del mapa.
+                | keyvalue         => hace referencia a la relación "llave-valor" del mapa.
+            -->
+            <img src="{{categoria.value.get('img')}}" alt="">
+            <p class="promocion">Black Friday</p>
+            <p style="color: red;"><b>{{categoria.value.get("precios")}}</b></p>
+            <p>Ahorra en {{categoria.key}} y más</p>
+        </div>
+    </div>
+</div>

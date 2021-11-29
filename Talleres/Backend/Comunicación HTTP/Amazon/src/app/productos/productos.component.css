@@ -1,0 +1,51 @@
+.promo {
+    width: 100%;
+}
+
+
+.cuerpo {
+    width:100%;
+    margin-top: 2rem;
+}
+
+.filtros {
+    width: 16%;
+    padding-left: 1rem;
+    border: solid rgb(200, 200, 200);
+    border-width: 0.1rem;
+}
+
+.categoriasProductos {
+    width:84%;
+    margin-top: -11.58rem;
+    margin-left: 16%;
+}
+
+.malla {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.categoria {
+    border: solid rgb(200, 200, 200);
+    border-width: 0.1rem;
+    padding-left: 30%;
+    padding-top: 0.5rem;
+}
+
+.categoriasProductos img {
+    width: 50%;
+
+}
+
+.categoriasProductos p {
+    margin-left: 10%;
+}
+
+.promocion {
+    background-color: red;
+    color: white;
+    width: 6rem;
+    margin-top: 0.5rem;
+}
+

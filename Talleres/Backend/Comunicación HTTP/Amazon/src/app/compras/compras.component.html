@@ -1,0 +1,24 @@
+<div class="cuerpo">
+    <h1>Ahorra en {{categoria}} y más</h1>
+    <div class="productos">
+        <div *ngFor="let producto of productos;" class="prod" (click)="paginaProducto(producto)">
+            <!--
+                producto[0] -> nombre del producto
+                producto[1] -> es otro array que contiene la información 
+                                del producto
+                producto[1][0] -> array que contiene la información de
+                                    la imagen
+                producto[1][0][1] -> contiene la dirección de la imagen
+
+                producto[1][1] -> array que contiene la información del precio
+                producto[1][1][0] ->
+            -->
+            <img src="{{producto[1][0][1]}}" alt="" >
+            <div class="contenido">
+                <h2>{{producto[0]}}</h2>
+                <p class="promo">Oferta del día</p>
+                <p>US${{producto[1][1][1]}}</p>
+            </div>
+        </div>
+    </div>
+</div>
