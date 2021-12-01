@@ -73,7 +73,7 @@ Heroku emplea una conexión basada en git. Lo instalamos ejecutando el siguiente
 1. `git add .`
 2. `git commit -m "comentario"`
 3. Iniciamos sesión en heroku ejecutando `heroku login`.
-4. Creamos el proyecto en Heroku: `heroku create <nomProyecto>`
+4. Creamos el proyecto en Heroku: `heroku create myapp --buildpack heroku/python`
 5. `heroku git:remote -a <nomProyecto>`
 6. `git push heroku master`
 
