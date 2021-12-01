@@ -44,6 +44,8 @@ Este archivo es fundamental para el despliegue en el servidor, dado lo usará He
 Aplicamos los siguientes ajustes:
 
 ```PYTHON
+ALLOWED_HOSTS = ['*']
+
 MIDDLEWARE = [
     ...,
     'whitenoise.middleware.WhiteNoiseMiddleware'
