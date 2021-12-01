@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpService } from '../http.service';
+
 
 @Component({
   selector: 'app-productos',
@@ -8,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ProductosComponent implements OnInit {
 
+  /*
   categoriasProductos:Map<string, Map<string, any>> = new Map<string, Map<string, any>>([
     ["Flash Furniture", new Map<string, any>([
       ["precios", "$10.72 - $856.00"],
@@ -64,15 +67,35 @@ export class ProductosComponent implements OnInit {
       ])]
     ])]
   ]);
+  */
+
+  categoriasProductos:Map<string, Map<string, any>> = new Map<string, Map<string, any>>();  //Mapa vacío
 
   usuario:string = "";
   opcionesFiltrado:Array<string> = [];
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private api:HttpService) { }
 
   ngOnInit(): void {
     this.usuario = localStorage.getItem("usuario") || '{}';
     this.opcionesFiltrado = JSON.parse(localStorage.getItem("opciones") || '[]');
+
+    this.obtencionCategorias();
+  }
+
+  obtencionCategorias():void {
+    this.api.get("productos/api/crud/tipo/")
+      .subscribe(
+        data => {
+          for (let categoria of data) {
+            this.categoriasProductos.set(categoria.nombre, new Map<string, any>([
+              ["img", categoria.foto],
+              ["precios", categoria.rangoPrecios]
+            ]));
+          }
+          console.log(this.categoriasProductos);
+        }
+      );
   }
 
   compras(categoria:string):void {
