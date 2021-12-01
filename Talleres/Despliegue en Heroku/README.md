@@ -29,7 +29,7 @@ MAC - LINUX
 Ahora, instalaremos todas las librerías requeridas para que nuestro proyecto corra. Si bien, las librerías a instalar dependen del proyecto, para nuestro caso funcionará la instalación de las siguientes librerías:
 
 ```
-python -m pip install django==3.0.5 sqlparse==0.2.4 pymongo==3.11.2 djongo==1.3.3 djangorestframework gunicorn whitenoise django-cors-headers
+python -m pip install django==3.0.5 sqlparse==0.2.4 pymongo==3.11.2 djongo==1.3.3 djangorestframework gunicorn whitenoise django-cors-headers Pillow
 ```
 
 ### 1.2. Archivo requirements.txt
